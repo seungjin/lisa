@@ -14,3 +14,4 @@ release:
 install:
 	cargo build --target wasm32-wasip2 --release
 	cp target/wasm32-wasip2/release/openai.wasm ~/.local/bin/openai.wasm
+	cp lisa, ~/.local/bin/lisa,

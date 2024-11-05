@@ -12,6 +12,8 @@ use tiktoken_rs::*;
 use url::Url;
 use waki::Client;
 
+mod turso;
+
 const OPENAI_ENDPOINT: &str = "https://api.openai.com/v1/chat/completions";
 
 #[derive(Parser)]
@@ -30,7 +32,7 @@ struct Cli {
         short,
         long,
         env = "OPENAI_PROMPT_TEXT",
-        default_value = "You are a friendly assistant"
+        default_value = "You are a friendly assistant."
     )]
     prompt: String,
     #[arg(short, long, env = "OPENAI_TEMPERATURE", default_value = "0.75")]
