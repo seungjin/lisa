@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-wasmtime -S http -S inherit-env "$SCRIPT_DIR"/openai.wasm "$*"
+wasmtime -S http -S inherit-env "$SCRIPT_DIR"/lisa.wasm "$*"
