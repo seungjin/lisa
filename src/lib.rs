@@ -1,15 +1,11 @@
 use anyhow::{anyhow, Error, Result};
-use clap::{Parser, Subcommand};
-use http::{HeaderMap, HeaderName, HeaderValue};
+use clap::Parser;
+use http::{HeaderMap, HeaderName, HeaderValue, Uri};
 use serde::{Deserialize, Serialize};
 use serde_json;
 use serde_json::Value;
 use std::io::Write as _;
-use std::io::{self, BufRead, Read};
-use std::path::PathBuf;
-use std::process;
 use std::str::FromStr;
-use std::time::Duration;
 use wasi::http::outgoing_handler::{self, RequestOptions};
 use wasi::http::types::{Fields, Method, OutgoingBody, Scheme};
 
@@ -153,6 +149,8 @@ fn ask(oa: OpenaiAsk) -> Result<Value> {
     let body2 = body_str.into_bytes();
     let clen = body2.len().to_string();
 
+    let openai_api_uri = OPENAI_ENDPOINT.parse::<Uri>().unwrap();
+
     let fields = Fields::new();
     fields
         .append(
@@ -183,10 +181,10 @@ fn ask(oa: OpenaiAsk) -> Result<Value> {
     outgoing_request.set_method(&Method::Post).unwrap();
     outgoing_request.set_scheme(Some(&Scheme::Https)).unwrap();
     outgoing_request
-        .set_authority(Some("api.openai.com"))
+        .set_authority(Some(openai_api_uri.host().unwrap()))
         .unwrap();
     outgoing_request
-        .set_path_with_query(Some("/v1/chat/completions"))
+        .set_path_with_query(Some(openai_api_uri.path()))
         .unwrap();
 
     let options = RequestOptions::new();
