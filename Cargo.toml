@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1"
-waki = { git = "https://github.com/wacker-dev/waki.git", branch = "main", features = [
+waki = { git = "https://github.com/seungjin/waki.git", branch = "wacker-dev-waki-issues-32", features = [
     "json",
     "multipart",
 ] }
