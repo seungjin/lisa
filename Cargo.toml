@@ -3,24 +3,21 @@ name = "lisa"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+crate-type = ["cdylib"]
+
 [dependencies]
 anyhow = "1"
-waki = { git = "https://github.com/wacker-dev/waki.git", branch = "main", features = [
-    "json",
-    "multipart",
-] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-#url = { git = "https://github.com/servo/rust-url.git", branch = "main" } #https://github.com/servo/rust-url/pull/983
-url = { git = "https://github.com/servo/rust-url.git", rev = "08a326820a4a54d6a9730ecabd590942fc6b66dc" }
-tiktoken-rs = "0.6.0"
 clap = { version = "4.5.20", features = ["derive", "env"] }
+wasi = "0.13.3"
+#wasi = { git = "https://github.com/bytecodealliance/wasi-rs", branch = "main"}
+http = "1.1.0"
 
-
-[build]
-target = "wasm32-wasip2"
-
-# reduce wasm binary size
 [profile.release]
+codegen-units = 1
+opt-level = "s"
+debug = false
+strip = true
 lto = true
-strip = "symbols"
