@@ -703,8 +703,8 @@ checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
 
 [[package]]
 name = "waki"
-version = "0.4.2"
-source = "git+https://github.com/seungjin/waki.git?branch=wacker-dev-waki-issues-32#4dddb0ba6ba6e10b14ecdbe1940c75a5dfb5d171"
+version = "0.5.0"
+source = "git+https://github.com/seungjin/waki.git?branch=main#cf0a3aa924c5d15125fd4c5512a63a8a81bdf2ad"
 dependencies = [
  "anyhow",
  "bytes",
@@ -723,8 +723,8 @@ dependencies = [
 
 [[package]]
 name = "waki-macros"
-version = "0.4.2"
-source = "git+https://github.com/seungjin/waki.git?branch=wacker-dev-waki-issues-32#4dddb0ba6ba6e10b14ecdbe1940c75a5dfb5d171"
+version = "0.5.0"
+source = "git+https://github.com/seungjin/waki.git?branch=main#cf0a3aa924c5d15125fd4c5512a63a8a81bdf2ad"
 dependencies = [
  "proc-macro2",
  "quote",
