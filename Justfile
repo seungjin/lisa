@@ -27,5 +27,5 @@ release:
 
 install:
 	cargo build --target wasm32-wasip2 --release
-	cp target/wasm32-wasip2/release/lisa.wasm ~/.local/bin/lisa.wasm
-	cp lisa, ~/.local/bin/lisa,
+	install -m 755 target/wasm32-wasip2/release/lisa.wasm ~/.local/bin/lisa.wasm
+	insall -m 755 lisa, ~/.local/bin/lisa,
