@@ -7,7 +7,7 @@ wit-update:
 build:
 	#cargo build --target wasm32-wasip2
 	cargo clean
-	cargo component build --target wasm32-wasip2
+	cargo component build --target wasm32-wasip1
 
 test:
 	#wasmtime wast test.wast

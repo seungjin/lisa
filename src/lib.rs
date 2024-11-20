@@ -129,10 +129,8 @@ impl wasi::exports::cli::run::Guest for Lisa {
             .as_str()
             .unwrap();
 
-        // println!("{}", r);
-        //
-
-        stdout.write_all(r.as_bytes()).unwrap();
+        stdout.write(r.as_bytes()).unwrap();
+        stdout.write("\n".as_bytes()).unwrap();
         stdout.flush().unwrap();
         Ok(())
     }
@@ -202,7 +200,24 @@ fn ask(oa: OpenaiAsk) -> Result<Value> {
         let request_body = outgoing_body
             .write()
             .map_err(|_| anyhow!("outgoing request write failed"))?;
-        request_body.blocking_write_and_flush(&body2)?;
+
+        let pollable = request_body.subscribe();
+
+        let mut buf = body2.as_slice();
+
+        while !buf.is_empty() {
+            pollable.block();
+
+            let permit = request_body.check_write()?;
+            let len = buf.len().min(permit as usize);
+            let (chunk, rest) = buf.split_at(len);
+            buf = rest;
+            request_body.write(chunk)?;
+        }
+
+        request_body.flush()?;
+        pollable.block();
+        let _ = request_body.check_write()?;
     }
     OutgoingBody::finish(outgoing_body, None)?;
 
